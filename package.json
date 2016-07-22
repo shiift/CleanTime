@@ -1,0 +1,91 @@
+{
+    "author": "liamsongdickson@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "cleantime",
+    "pebble": {
+        "capabilities": [
+            ""
+        ],
+        "displayName": "CleanTime",
+        "enableMultiJS": false,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/batt_chg.png",
+                    "name": "IMAGE_BATT_CHG",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/na.png",
+                    "name": "IMAGE_NA",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/sun.png",
+                    "name": "IMAGE_SUN",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/cloud.png",
+                    "name": "IMAGE_CLOUD",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/part.png",
+                    "name": "IMAGE_PART",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/thunder.png",
+                    "name": "IMAGE_THUNDER",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/snow.png",
+                    "name": "IMAGE_SNOW",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/rain.png",
+                    "name": "IMAGE_RAIN",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "characterRegex": "[0-9:. ]",
+                    "file": "fonts/coolvetica_68.ttf",
+                    "name": "FONT_COOLVETICA_68",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/coolvetica_24.ttf",
+                    "name": "FONT_COOLVETICA_24",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "74d477ac-f98a-4fd3-b685-a8491d187df6",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
