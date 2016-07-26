@@ -5,14 +5,42 @@
     "name": "cleantime",
     "pebble": {
         "capabilities": [
-            ""
+            "location"
         ],
         "displayName": "CleanTime",
         "enableMultiJS": false,
-        "messageKeys": [],
+        "messageKeys": {
+            "KEY_ICON": 0,
+            "KEY_TEMPMAX": 1,
+            "KEY_TEMPMIN": 2
+        },
         "projectType": "native",
         "resources": {
             "media": [
+                {
+                    "file": "images/batt3.png",
+                    "name": "IMAGE_BATT3",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/batt2.png",
+                    "name": "IMAGE_BATT2",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/batt1.png",
+                    "name": "IMAGE_BATT1",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/batt0.png",
+                    "name": "IMAGE_BATT0",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
                 {
                     "file": "images/batt_chg.png",
                     "name": "IMAGE_BATT_CHG",
@@ -39,6 +67,7 @@
                 },
                 {
                     "file": "images/part.png",
+                    "menuIcon": true,
                     "name": "IMAGE_PART",
                     "targetPlatforms": null,
                     "type": "bitmap"
