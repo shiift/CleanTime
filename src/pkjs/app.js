@@ -1,6 +1,6 @@
-var myAPIKey = 'e4584a043dedbb5903f71d99cc204c11';
+var owmAPIKey = 'e4584a043dedbb5903f71d99cc204c11';
 
-function iconFromWeatherId(weatherId) {
+function iconFromWeatherId_owm(weatherId) {
   if (weatherId < 300) { // Thunder
     return 4;
   } else if (weatherId < 600 || weatherId == 701) { // Rain
@@ -20,20 +20,45 @@ function iconFromWeatherId(weatherId) {
   }
 }
 
+function iconFromWeatherId_yahoo(weatherId) {
+  if (weatherId <= 4) { // Thunder
+    return 4;
+  } else if (weatherId <= 12 || weatherId == 40) { // Rain
+    return 3;
+  } else if (weatherId <= 18) { // Snow
+    return 5;
+  } else if (weatherId < 26) { // Cloudy
+    return 2;
+  } else if (weatherId < 30 || weatherId == 44) { // Partly Cloudy
+    return 6;
+  } else if (weatherId <= 34 || weatherId == 36) { // Clear (Sunny)
+    return 1;
+  } else if (weatherId <= 39 || weatherId == 45 || weatherId == 47) { // Thunder
+    return 4;
+  } else if (weatherId <= 43 || weatherId == 46) { // Snow
+    return 5;
+  } else {
+    return 0;
+  }
+}
+
 function fetchWeather(latitude, longitude) {
   var req = new XMLHttpRequest();
-  req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?' +
-    'lat=' + latitude + '&lon=' + longitude + '&cnt=1&units=imperial&appid=' + myAPIKey, true);
+  req.open('GET', 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20' +
+           'weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.' +
+           'places(1)%20where%20text%3D%22(' + latitude + ',' + longitude +
+           ')%22)&u=f&format=json', true);
   req.onload = function () {
     if (req.readyState === 4) {
       if (req.status === 200) {
         console.log(req.responseText);
         var response = JSON.parse(req.responseText);
-        var temp_max = Math.round(response.main.temp_max);
-        var temp_min = Math.round(response.main.temp_min);
-        var icon = iconFromWeatherId(response.weather[0].id);
+        response = response.query.results.channel.item;
+        var temp_max = Math.round(response.forecast[0].high);
+        var temp_min = Math.round(response.condition.temp);
+        var icon = iconFromWeatherId_yahoo(response.forecast[0].code);
         console.log("Max: " + temp_max);
-        console.log("Min: " + temp_min);
+        console.log("Current: " + temp_min);
         console.log("Weather: " + icon);
         Pebble.sendAppMessage({
           'KEY_ICON': icon,

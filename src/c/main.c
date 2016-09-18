@@ -12,7 +12,6 @@ static TextLayer *s_temp_high_layer;
 static TextLayer *s_temp_low_layer;
 static BitmapLayer *s_icon_layer;
 static GBitmap *s_icon_bitmap;
-static int s_weather_state = 0;
 
 static TextLayer *s_battery_layer;
 static BitmapLayer *s_battery_icon_layer;
@@ -59,22 +58,33 @@ char *itoa(int num) {
   return string;
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-  // Write the current hours and minutes into a buffer
-  static char s_buffer[6];
-  strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
-            "%k:%M" : "%l:%M", tick_time);
-  
+static void update_date(struct tm *tick_time, TimeUnits units_changed) {
   // Write the current date into a buffer
   static char s_date_buffer[11];
   strftime(s_date_buffer, sizeof(s_date_buffer), "%a %b %e", tick_time);
-  
-  // Display this date/time on the TextLayer
-  text_layer_set_text(s_time_layer, s_buffer[0] == ' ' ?
-                        s_buffer+1 : s_buffer);
+  // Display this date on the TextLayer
   text_layer_set_text(s_date_layer, s_date_buffer);
+}
+
+static void update_time(struct tm *tick_time, TimeUnits units_changed) {
+  // Write the current hours and minutes into a buffer
+  static char s_buffer[6];
+  strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ?
+           "%k:%M" : "%l:%M", tick_time);
+  // Display this time on the TextLayer
+  text_layer_set_text(s_time_layer, s_buffer[0] == ' ' ?
+                      s_buffer+1 : s_buffer);
+}
+
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+  update_time(tick_time, units_changed);
   
+  // On the hour
   if (tick_time->tm_min == 0) {
+    // On the day
+    if (tick_time->tm_hour == 0) {
+      update_date(tick_time, units_changed);
+    }
     // Begin dictionary
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
@@ -200,6 +210,9 @@ static void main_window_unload(Window *window) {
 static void init_layers() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
+  // Set current date
+  update_date(tick_time, MINUTE_UNIT);
+  // Set current time
   tick_handler(tick_time, MINUTE_UNIT);
   
   battery_handler(battery_state_service_peek());

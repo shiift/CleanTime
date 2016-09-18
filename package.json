@@ -18,6 +18,13 @@
         "resources": {
             "media": [
                 {
+                    "file": "images/app_icon.png",
+                    "menuIcon": true,
+                    "name": "APP_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/batt3.png",
                     "name": "IMAGE_BATT3",
                     "targetPlatforms": null,
@@ -67,7 +74,6 @@
                 },
                 {
                     "file": "images/part.png",
-                    "menuIcon": true,
                     "name": "IMAGE_PART",
                     "targetPlatforms": null,
                     "type": "bitmap"
